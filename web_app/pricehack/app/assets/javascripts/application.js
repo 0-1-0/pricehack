@@ -20,9 +20,9 @@ $(document).ready(function(){
   $("#search_btn").click(function(){
     var id = $( "input[type=text][name=id]" ).val();
      $.ajax({
-    url: 'find/' + id,             // указываем URL и
-    dataType : "json",                     // тип загружаемых данных
-    success: function (data) { // вешаем свой обработчик на функцию success
+    url: 'find/' + id, 
+    dataType : "json",          
+    success: function (data) { 
         $(".title").append(data['title']);
         $(".price").append(data['price']);
     } 
