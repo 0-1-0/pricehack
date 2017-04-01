@@ -11,6 +11,21 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+  $("#search_btn").click(function(){
+    var id = $( "input[type=text][name=id]" ).val();
+     $.ajax({
+    url: 'find/' + id,             // указываем URL и
+    dataType : "json",                     // тип загружаемых данных
+    success: function (data) { // вешаем свой обработчик на функцию success
+        $(".title").append(data['title']);
+        $(".price").append(data['price']);
+    } 
+});
+  });
+})
