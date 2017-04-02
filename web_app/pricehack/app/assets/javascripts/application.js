@@ -35,7 +35,7 @@ $(document).ready(function(){
         type: 'POST', 
         data: {id: url1},          
         success: function (resp) { 
-            $(".old_prices").text(resp['prices']);
+            $(".old_prices").text('Offers: ' + resp['prices']);
         } 
       });
   });
