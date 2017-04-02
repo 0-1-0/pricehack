@@ -21,6 +21,11 @@ class DashboardController < ApplicationController
           {price: price, shipping: shipping, total: price+shipping, condition: condition}
         }
         @amazon_offers = a.select{|x| x[:condition] == 'new'}.map{|x| x[:total]}.sort
+
+        @ebay_offers = Ebay.find(@amazon_title)
+
+        new_ebay_price = [@ebay_offers[0].total_price*0.9, @ebay_offers[0].total_price-0.9].max
+        @delta = (new_ebay_price - @amazon_offers[0]) - new_ebay_price*0.1 - 0.3
     end
   end
 end

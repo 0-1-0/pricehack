@@ -12,6 +12,13 @@ br/
             h3= @amazon_title
         .row
             h3 Minimum price: #{@amazon_offers.min}
+        .row
+            h3 Potential gain: #{@delta}
     - if @ebay_offers
         .row 
             h1 Ebay results
+        - @ebay_offers.each do |offer|
+            .row
+                h5=offer.title
+            .row
+                h5=offer.total_price
