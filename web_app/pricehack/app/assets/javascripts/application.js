@@ -38,5 +38,25 @@ $(document).ready(function(){
             $(".old_prices").text('Offers: ' + resp['prices']);
         } 
       });
+
+     $.ajax({
+        url: "find_ebay/",
+        type: "get",
+        dataType: 'json',
+        success: function(data){ 
+          var keys = [];
+          var values = [];
+          $(".ebay").append("<h3>Ebay</h3>");
+          for (var i = 0; i < data['ebay'].length; i++) {
+              for (var key in data['ebay'][i]) {
+                  if (data['ebay'][i].hasOwnProperty(key)) {
+                      $(".ebay").append("Title" + key + "<br>");
+                      $(".ebay").append("Price: " + data['ebay'][i][key] + "<br>");
+                  }
+              }
+          }
+        },
+        async: false
+    });
   });
 })

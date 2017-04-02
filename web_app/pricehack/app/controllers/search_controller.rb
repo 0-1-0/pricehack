@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  $item_attributes = {} # global var
   def home 
   end
   def find_amazon_prices
@@ -13,7 +14,8 @@ class SearchController < ApplicationController
         }
     prices = a.select{|x| x[:condition] == 'new'}.map{|x| x[:total]}.sort
     prices = prices.split('')
-    render json: {prices: prices}
+    $item_attributes["amazon_prices"] = prices
+    render json: $item_attributes
   end
 
   def find_amazon_info
@@ -31,6 +33,33 @@ class SearchController < ApplicationController
         'ItemId' => amazon_id
       }
     )
-    render json: {title: response.to_h['ItemLookupResponse']["Items"]["Item"]["ItemAttributes"]["Title"]}
+    $item_attributes["amazon_title"] = response.to_h['ItemLookupResponse']["Items"]["Item"]["ItemAttributes"]["Title"]
+    render json: $item_attributes
   end
+
+  def find_ebay(max_items=50)
+    url ='http://svcs.ebay.com/services/search/FindingService/v1'
+    $headers = {'X-EBAY-SOA-SECURITY-APPNAME' => 'LexQuark-Quarkie-PRD-ebff6a2ad-9a0198d4',  'X-EBAY-SOA-OPERATION-NAME' => 'findItemsAdvanced'   }  
+    agent = Mechanize.new()
+    $agent = ["Linux Firefox","Linux Konqueror","Linux Mozilla", "Mac Mozilla","Mac Safari"]
+    agent.user_agent_alias = $agent.sample
+
+    query = "<?xml version='1.0' encoding='UTF-8'?>
+    <findItemsAdvancedRequest xmlns='http://www.ebay.com/marketplace/search/v1/services'>
+      <keywords>#{$item_attributes["amazon_title"]}</keywords>
+      <paginationInput>
+        <entriesPerPage>#{max_items}</entriesPerPage>
+      </paginationInput>
+    </findItemsAdvancedRequest>"
+
+    page = agent.post(url,query,$headers)
+    @doc = Nokogiri::XML(page.content)
+    $item_attributes["ebay"] = []
+    @doc.search('item').map {|item|
+      $item_attributes["ebay"].append({Hash.from_xml(item.to_s)['item']['title'] => Hash.from_xml(item.to_s)['item']['sellingStatus']['currentPrice']}) 
+    }
+    puts $item_attributes
+    render json: $item_attributes
+  end
+
 end
