@@ -24,7 +24,7 @@ $(document).ready(function(){
 
     $.ajax({
           url: "find_amazon_info/",
-          type: "POST",
+          type: "post",
           data: {amazon_url: url1},
           success: function(resp){ 
             $(".title").append(resp['title']);
@@ -32,10 +32,11 @@ $(document).ready(function(){
       });
 
      $.ajax({
-        url: 'find_amazon_prices/' + id[5], 
-        dataType : "json",          
-        success: function (data) { 
-            $(".old_prices").append(data['prices']);
+        url: 'find_amazon_prices/',
+        type: 'POST', 
+        data: {id: url1},          
+        success: function (resp) { 
+            $(".old_prices").append(resp['prices']);
         } 
       });
   });

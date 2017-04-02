@@ -2,8 +2,9 @@ class SearchController < ApplicationController
   def home 
   end
   def find_amazon_prices
+    amazon_id = params[:id][/[A-Z0-9]{8,10}/]
     agent = Mechanize.new()
-    page = agent.get('https://www.amazon.com/gp/offer-listing/' + params[:id] + '/ref=dp_olp_new_mbc?ie=UTF8&condition=new')
+    page = agent.get('https://www.amazon.com/gp/offer-listing/' + amazon_id + '/ref=dp_olp_new_mbc?ie=UTF8&condition=new')
     a = page.search('.olpOffer').map{|x|
           condition = x.search('.olpCondition').text.strip.downcase
           price = x.search('.olpOfferPrice').text[/[\d.,]+/].to_f
@@ -16,7 +17,7 @@ class SearchController < ApplicationController
   end
 
   def find_amazon_info
-    amazon_id = params[:amazon_url].split(/\W+/).select{|x| x.upcase == x}.first
+    amazon_id = params[:amazon_url][/[A-Z0-9]{8,10}/]
     request = Vacuum.new
     request.configure(
       aws_access_key_id: ENV["aws_access_key_id"],
@@ -30,10 +31,5 @@ class SearchController < ApplicationController
       }
     )
     render json: {title: response.to_h['ItemLookupResponse']["Items"]["Item"]["ItemAttributes"]["Title"]}
-    # agent = Mechanize.new()
-    # page = agent.get(params[:id][:field])
-    # title = page.search('#productTitle').text.strip
-    # price =  page.search('#priceblock_ourprice').text.strip
-    # render json: {title: title, price: price}
   end
 end
