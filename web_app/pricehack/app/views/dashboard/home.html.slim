@@ -1,0 +1,17 @@
+br/
+.row
+  = form_tag '/dashboard/search', method: 'post' do
+      .col-lg-8
+        = text_field_tag  :amazon_url, nil, class: 'form-control pull-left', placeholder: 'URL'
+      .col-lg-1
+        = submit_tag 'Search', class: 'btn btn-default'
+.row
+  .col-lg-9
+    - if @amazon_title
+        .row
+            h3= @amazon_title
+        .row
+            h3 Minimum price: #{@amazon_offers.min}
+    - if @ebay_offers
+        .row 
+            h1 Ebay results

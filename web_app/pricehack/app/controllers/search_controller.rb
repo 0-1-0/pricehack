@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
   def home 
   end
+
   def find_amazon_prices
     amazon_id = params[:id][/[A-Z0-9]{8,10}/]
     agent = Mechanize.new()

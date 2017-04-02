@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'dashboard/home'
+
   post 'search/find_amazon_prices/' => 'search#find_amazon_prices'
   post 'search/find_amazon_info/' => 'search#find_amazon_info'
   get 'search/find_ebay/:keyword' => 'search#find_ebay'
@@ -9,6 +11,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'search#home'
+
+  post 'dashboard/search' => 'dashboard#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
