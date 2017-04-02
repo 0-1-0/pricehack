@@ -25,10 +25,9 @@ $(document).ready(function(){
     $.ajax({
           url: "find_amazon_info/",
           type: "POST",
-          data: {id: {field: url1 }},
+          data: {amazon_url: url1},
           success: function(resp){ 
             $(".title").append(resp['title']);
-            $(".price").append(resp['price']);
           }
       });
 

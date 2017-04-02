@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'search/find_amazon_prices/:id' => 'search#find_amazon_prices'
-  post 'search/find_amazon_info/' => 'search#find_amazon_info'
+  post 'search/find_amazon_info/:amazon_url' => 'search#find_amazon_info'
   get 'search/find_ebay/:keyword' => 'search#find_ebay'
   get 'search/home' => 'search#home', as: :home
 
