@@ -20,14 +20,13 @@ $(document).ready(function(){
   $("#search_btn").click(function(){
   
     var url1 = $( "input[type=text][name=id]" ).val();
-    var id = url1.split('/');
 
     $.ajax({
           url: "find_amazon_info/",
           type: "post",
           data: {amazon_url: url1},
           success: function(resp){ 
-            $(".title").append(resp['title']);
+            $(".title").text(resp['title']);
           }
       });
 
@@ -36,7 +35,7 @@ $(document).ready(function(){
         type: 'POST', 
         data: {id: url1},          
         success: function (resp) { 
-            $(".old_prices").append(resp['prices']);
+            $(".old_prices").text(resp['prices']);
         } 
       });
   });
