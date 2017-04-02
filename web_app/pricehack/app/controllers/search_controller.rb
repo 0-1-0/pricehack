@@ -18,10 +18,11 @@ class SearchController < ApplicationController
 
   def find_amazon_info
     amazon_id = params[:amazon_url][/[A-Z0-9]{8,10}/]
+    p amazon_id
     request = Vacuum.new
     request.configure(
-      aws_access_key_id: ENV["aws_access_key_id"],
-      aws_secret_access_key: ENV["aws_secret_access_key"],
+      aws_access_key_id: AccessKey.where(provider: :amazon).first.key,
+      aws_secret_access_key: AccessKey.where(provider: :amazon).first.secret,
       associate_tag: 'tag'
     )
     rg = %w(ItemAttributes AlternateVersions Offers).join(',')
