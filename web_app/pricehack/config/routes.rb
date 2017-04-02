@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'search/find/:id' => 'search#find'
+  get 'search/find_amazon_prices/:id' => 'search#find_amazon_prices'
+  post 'search/find_amazon_info/' => 'search#find_amazon_info'
+  get 'search/find_ebay/:keyword' => 'search#find_ebay'
   get 'search/home' => 'search#home', as: :home
 
   # The priority is based upon order of creation: first created -> highest priority.

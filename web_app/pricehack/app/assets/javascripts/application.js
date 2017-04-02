@@ -18,14 +18,26 @@
 
 $(document).ready(function(){
   $("#search_btn").click(function(){
-    var id = $( "input[type=text][name=id]" ).val();
+  
+    var url1 = $( "input[type=text][name=id]" ).val();
+    var id = url1.split('/');
+
+    $.ajax({
+          url: "find_amazon_info/",
+          type: "POST",
+          data: {id: {field: url1 }},
+          success: function(resp){ 
+            $(".title").append(resp['title']);
+            $(".price").append(resp['price']);
+          }
+      });
+
      $.ajax({
-    url: 'find/' + id, 
-    dataType : "json",          
-    success: function (data) { 
-        $(".title").append(data['title']);
-        $(".price").append(data['price']);
-    } 
-});
+        url: 'find_amazon_prices/' + id[5], 
+        dataType : "json",          
+        success: function (data) { 
+            $(".old_prices").append(data['prices']);
+        } 
+      });
   });
 })
