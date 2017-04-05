@@ -6,19 +6,26 @@ br/
       .col-lg-1
         = submit_tag 'Search', class: 'btn btn-default'
 .row
-  .col-lg-9
-    - if @amazon_title
-        .row
-            h3= @amazon_title
-        .row
-            h3 Minimum price: #{@amazon_offers.min}
-        .row
-            h3 Potential gain: #{@delta}
-    - if @ebay_offers
-        .row 
-            h1 Ebay results
-        - @ebay_offers.each do |offer|
-            .row
-                h5=offer.title
-            .row
-                h5=offer.total_price
+  = form_tag '/dashboard/check', method: 'post' do
+    .col-lg-9
+      - if @amazon_title
+          .row
+              h3= @amazon_title
+              input type="hidden" name="amz_id" value="#{@amz_id}"
+          .row
+              h3 Minimum price: #{@amazon_offers.min}
+          .row
+              h3 Potential gain: #{@delta}
+
+      - if @ebay_offers
+          .row 
+              h1 Ebay results
+          - @ebay_offers.each do |offer|
+              .row
+                  h5=offer.title
+              .row
+                  h5=offer.total_price
+              .row
+                  = check_box_tag "check[]", offer.url
+    .col-lg-2
+      = submit_tag 'Save to product', class: 'btn btn-default'

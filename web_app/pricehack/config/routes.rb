@@ -1,65 +1,16 @@
 Rails.application.routes.draw do
-  get 'dashboard/home'
+  get 'products/index'
+
+  get 'dashboard/home', as: :home
 
   post 'search/find_amazon_prices/' => 'search#find_amazon_prices'
   post 'search/find_amazon_info/' => 'search#find_amazon_info'
   get 'search/find_ebay/:keyword' => 'search#find_ebay'
-  get 'search/home' => 'search#home', as: :home
+  get 'search/home' => 'search#home'
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
   root 'search#home'
 
   post 'dashboard/search' => 'dashboard#home'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  post 'dashboard/check' => 'dashboard#check'
+  delete 'products/index/:id' => "products#destroy", as: :delete_product
 end

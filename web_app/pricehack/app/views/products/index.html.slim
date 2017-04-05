@@ -1,0 +1,13 @@
+  thead
+    tr
+      th Amazon id
+      th Ebay url
+      th Delete
+  tbody
+    - @products.each do |product|
+      tr
+        td=product.amazon_id
+        td=product.ebay_offers.collect(&:url)
+        td= link_to "Delete Product", delete_product_path(product.id), method: :delete, data: {confirm: "You sure?"}, class: "btn btn-danger"
+
+

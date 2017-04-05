@@ -1,4 +1,5 @@
 class EbayItem
+
   def initialize(xml, keyword)
     @doc = Hash.from_xml(xml)['item']
     @keyword = keyword
@@ -22,5 +23,9 @@ class EbayItem
 
   def total_price
     @doc['sellingStatus']['convertedCurrentPrice'].to_f + @doc['shippingInfo']['shippingServiceCost'].to_f
+  end
+
+  def url
+    @doc['viewItemURL']
   end
 end
