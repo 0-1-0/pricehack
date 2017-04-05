@@ -9,6 +9,6 @@ table.table
       tr
         td=product.amazon_id
         td=product.ebay_offers.collect(&:url)
-        td= link_to "Delete Product", delete_product_path(product.id), method: :delete, data: {confirm: "You sure?"}, class: "btn btn-d"
+        td= link_to "Delete Product", delete_product_path(product.id), method: :delete, data: {confirm: "You sure?"}, class: "btn btn-danger"
 
 
