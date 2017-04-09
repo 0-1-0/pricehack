@@ -4,11 +4,12 @@ table.table
       th Amazon id
       th Ebay url
       th Delete
+      th Price plot
   tbody
     - @products.each do |product|
       tr
         td=product.amazon_id
         td=product.ebay_offers.collect(&:url)
         td= link_to "Delete Product", delete_product_path(product.id), method: :delete, data: {confirm: "You sure?"}, class: "btn btn-danger"
-
+        td= link_to "Product plot", product_plot_path(product.id), class: "btn btn-success"
 

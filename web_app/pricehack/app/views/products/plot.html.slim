@@ -1,0 +1,3 @@
+.container
+  br/
+  = scatter_chart @amazon_prices.pluck(:count, :created_at), xtitle: "Count", ytitle: "Created at"

@@ -19,4 +19,5 @@ class Amazon
     }
     return [title, offers.select{|x| x[:condition] == 'new'}.map{|x| x[:total]}.sort]
   end
+
 end

@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+
   def home
     @amz_id = (params[:amazon_url] || '')[/[A-Z0-9]{8,10}/]
     if @amz_id
@@ -8,6 +9,7 @@ class DashboardController < ApplicationController
         @delta = (new_ebay_price - @amazon_offers[0]) - new_ebay_price*0.1 - 0.3
     end
   end
+
   def check
     product = Product.create(amazon_id: params[:amz_id])
     params[:check].each do |element|
@@ -17,4 +19,5 @@ class DashboardController < ApplicationController
     product.save
     redirect_to home_path
   end
+
 end

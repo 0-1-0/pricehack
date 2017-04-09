@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'products/index'
+  get 'products/index', as: :products
+  get 'products/:id/plot' => 'products#plot', as: :product_plot
 
   get 'dashboard/home', as: :home
 
@@ -7,7 +8,6 @@ Rails.application.routes.draw do
   post 'search/find_amazon_info/' => 'search#find_amazon_info'
   get 'search/find_ebay/:keyword' => 'search#find_ebay'
   get 'search/home' => 'search#home'
-
   root 'search#home'
 
   post 'dashboard/search' => 'dashboard#home'

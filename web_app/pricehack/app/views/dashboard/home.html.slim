@@ -1,5 +1,8 @@
 br/
 .row
+  = link_to "Products", products_path, class: "btn btn-default"
+br/
+.row
   = form_tag '/dashboard/search', method: 'post' do
       .col-lg-8
         = text_field_tag  :amazon_url, nil, class: 'form-control pull-left', placeholder: 'URL'
