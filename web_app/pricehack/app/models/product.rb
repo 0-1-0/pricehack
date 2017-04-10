@@ -19,7 +19,7 @@ class Product < ActiveRecord::Base
     page = agent.get(url)
     a = page.search('#priceblock_ourprice').text.strip.downcase
     a = a[1..-1].to_f
-    price = Price.create(count: a)
+    price = Price.create(count: a, date: Date.today)
     product.prices << price
     product.save
   end
@@ -38,7 +38,7 @@ class Product < ActiveRecord::Base
       page = agent.get(offer.url)
       a = page.search('#prcIsum').text.strip.downcase
       a = a[4..-1].to_f
-      price = Price.create(count: a)
+      price = Price.create(count: a, date: Date.today)
       offer.prices << price
       offer.save
     end

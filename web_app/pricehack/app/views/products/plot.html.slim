@@ -1,3 +1,6 @@
 .container
   br/
-  = scatter_chart @amazon_prices.pluck(:count, :created_at), xtitle: "Count", ytitle: "Created at"
+  h1 Amazon
+  = area_chart @amazon_prices.group_by_day(:date).minimum(:count), xtitle: "Date", ytitle: "Price"
+  h1 Ebay
+  = area_chart @ebay_prices.group_by_day(:date).minimum(:count), xtitle: "Date", ytitle: "Price"

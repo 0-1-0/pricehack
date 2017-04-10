@@ -15,8 +15,8 @@ class ProductsController < ApplicationController
 
   def plot
     @amazon_prices = Product.find(params[:id]).prices
-    @ebay = Product.find(params[:id]).ebay_offers
-    @ebay_prices = @ebay
+    @ebays = Product.find(params[:id]).ebay_offers.last
+    @ebay_prices = @ebays.prices
   end
 
   private
