@@ -15,8 +15,12 @@ class ProductsController < ApplicationController
 
   def plot
     @amazon_prices = Product.find(params[:id]).prices
-    @ebays = Product.find(params[:id]).ebay_offers.last
-    @ebay_prices = @ebays.prices
+    @ebays_id = Product.find(params[:id]).ebay_offers.collect(&:id)
+    @dates = []
+    for date in Price.all.collect(&:date).uniq
+      @dates << date
+    end
+    @ebay_prices = Price.where(date: @dates ,ebay_offer_id: @ebays_id)
   end
 
   private
